@@ -1,18 +1,11 @@
-<style>
-.rtl {
-  direction: rtl;
-  text-align: right;
-}
-</style>
-
 # SQL Injection
-This documentation is provided by Mahsa Hakimi (ID: 403011020).
+This documentation is provided by Mahsa Hakimi.
 
 Source: [https://portswigger.net/web-security/sql-injection](https://portswigger.net/web-security/sql-injection)
 
 ---
 
-<div class="rtl">
+<div dir="rtl">
 
 # تزریق SQL
 موضوعاتی که در اینجا به آن‌ها خواهیم پرداخت:
@@ -24,7 +17,7 @@ Source: [https://portswigger.net/web-security/sql-injection](https://portswigger
 
 <img src="https://portswigger.net/web-security/images/sql-injection.svg" alt="SQL Injection" style="display: block; margin-right: auto; margin-left: auto;">
 
-<div class="rtl">
+<div dir="rtl">
 
 ---
 
@@ -80,7 +73,7 @@ Source: [https://portswigger.net/web-security/sql-injection](https://portswigger
 https://insecure-website.com/products?category=Gifts
 ```
 
-<div class="rtl">
+<div dir="rtl">
 
 این باعث می‌شود برنامه یک کوئری SQL برای بازیابی جزئیات محصولات مرتبط از پایگاه داده اجرا کند:
 
@@ -90,7 +83,7 @@ https://insecure-website.com/products?category=Gifts
 SELECT * FROM products WHERE category = 'Gifts' AND released = 1
 ```
 
-<div class="rtl">
+<div dir="rtl">
 
 این SQL query از پایگاه داده می خواهد که موارد زیر را برگرداند:
 
@@ -109,7 +102,7 @@ SELECT * FROM products WHERE category = 'Gifts' AND released = 1
 https://insecure-website.com/products?category=Gifts'--
 ```
 
-<div class="rtl">
+<div dir="rtl">
 
 این منجر به SQL query زیر می شود:
 
@@ -119,7 +112,7 @@ https://insecure-website.com/products?category=Gifts'--
 SELECT * FROM products WHERE category = 'Gifts'--' AND released = 1
 ```
 
-<div class="rtl">
+<div dir="rtl">
 
 نکته مهم این است که `--` یک نشانگر توضیحات (comment) در SQL است. این بدان معناست که بقیه کوئری به عنوان توضیحات تفسیر می‌شود و عملاً حذف می‌شود. در این مثال، این به معنای حذف `AND released = 1` است. در نتیجه، تمام محصولات نمایش داده می‌شوند، از جمله آن‌هایی که هنوز منتشر نشده‌اند.
 
@@ -131,7 +124,7 @@ SELECT * FROM products WHERE category = 'Gifts'--' AND released = 1
 https://insecure-website.com/products?category=Gifts'+OR+1=1--
 ```
 
-<div class="rtl">
+<div dir="rtl">
 
 این منجر به اجرای کوئری SQL زیر می‌شود:
 
@@ -141,7 +134,7 @@ https://insecure-website.com/products?category=Gifts'+OR+1=1--
 SELECT * FROM products WHERE category = 'Gifts' OR 1=1--' AND released = 1
 ```
 
-<div class="rtl">
+<div dir="rtl">
 
 کوئری تغییر یافته تمام مواردی را برمی‌گرداند که یا در دسته‌بندی `Gifts` قرار دارند یا `1=1` است. از آنجایی که `1=1` همیشه درست است، کوئری تمام موارد را برمی‌گرداند.
 
@@ -157,7 +150,7 @@ SELECT * FROM products WHERE category = 'Gifts' OR 1=1--' AND released = 1
 SELECT * FROM users WHERE username = 'wiener' AND password = 'bluecheese'
 ```
 
-<div class="rtl">
+<div dir="rtl">
 
 اگر کوئری جزئیات یک کاربر را برگرداند، ورود به سیستم موفقیت‌آمیز است. در غیر این صورت، رد می‌شود.
 
@@ -169,7 +162,7 @@ SELECT * FROM users WHERE username = 'wiener' AND password = 'bluecheese'
 SELECT * FROM users WHERE username = 'administrator'--' AND password = ''
 ```
 
-<div class="rtl">
+<div dir="rtl">
 
 این کوئری کاربری را که `username` آن `administrator` است برمی‌گرداند و مهاجم با موفقیت به عنوان آن کاربر وارد سیستم می‌شود.
 
@@ -185,7 +178,7 @@ SELECT * FROM users WHERE username = 'administrator'--' AND password = ''
 SELECT name, description FROM products WHERE category = 'Gifts'
 ```
 
-<div class="rtl">
+<div dir="rtl">
 
 یک مهاجم می تواند ورودی زیر را ارسال کند:
 
@@ -195,7 +188,7 @@ SELECT name, description FROM products WHERE category = 'Gifts'
 ' UNION SELECT username, password FROM users--
 ```
 
-<div class="rtl">
+<div dir="rtl">
 
 این باعث می شود که برنامه همه نام های کاربری و رمزهای عبور را به همراه نام ها و توضیحات محصولات برگرداند.
 
@@ -219,7 +212,7 @@ SELECT name, description FROM products WHERE category = 'Gifts'
 
 <img src="https://portswigger.net/web-security/images/second-order-sql-injection.svg" alt="Second-Order SQL Injection" style="display: block; margin-right: auto; margin-left: auto;">
 
-<div class="rtl">
+<div dir="rtl">
 
 تزریق SQL مرتبه دوم اغلب در شرایطی رخ می‌دهد که توسعه‌دهندگان از آسیب‌پذیری‌های تزریق SQL آگاه هستند و بنابراین ورودی‌ها را به طور ایمن در پایگاه داده قرار می‌دهند. هنگامی که داده‌ها بعداً پردازش می‌شوند، به عنوان داده‌های ایمن در نظر گرفته می‌شوند، زیرا قبلاً به طور ایمن در پایگاه داده قرار گرفته‌اند. در این مرحله، داده‌ها به روشی ناامن پردازش می‌شوند، زیرا توسعه‌دهنده به اشتباه آن‌ها را قابل اعتماد می‌داند.
 
@@ -243,7 +236,7 @@ SELECT name, description FROM products WHERE category = 'Gifts'
 SELECT * FROM v$version
 ```
 
-<div class="rtl">
+<div dir="rtl">
 
 همچنین می توانید مشخص کنید که چه جداول پایگاه داده ای وجود دارد و ستون های آنها شامل چه مواردی هستند. به عنوان مثال، در اکثر پایگاه های داده می توانید پرس و جوی زیر را برای لیست کردن جداول اجرا کنید:
 
@@ -253,7 +246,7 @@ SELECT * FROM v$version
 SELECT * FROM information_schema.tables
 ```
 
-<div class="rtl">
+<div dir="rtl">
 
 # تزریق SQL در زمینه های مختلف
 
@@ -270,7 +263,7 @@ SELECT * FROM information_schema.tables
 </stockCheck>
 ```
 
-<div class="rtl">
+<div dir="rtl">
 
 این در سمت سرور قبل از ارسال به مترجم SQL رمزگشایی (decoded) می شود.
 
@@ -290,7 +283,7 @@ Statement statement = connection.createStatement();
 ResultSet resultSet = statement.executeQuery(query);
 ```
 
-<div class="rtl">
+<div dir="rtl">
 
 شما می توانید این کد را به گونه ای بازنویسی کنید که از تداخل ورودی کاربر با ساختار query جلوگیری کند:
 
@@ -302,7 +295,7 @@ statement.setString(1, input);
 ResultSet resultSet = statement.executeQuery();
 ```
 
-<div class="rtl">
+<div dir="rtl">
 
 شما می توانید از query های پارامتری برای هر موقعیتی که ورودی غیرقابل اعتماد به عنوان داده در داخل query ظاهر می شود، از جمله عبارت `WHERE` و مقادیر در یک عبارت `INSERT` یا `UPDATE` استفاده کنید. آنها نمی توانند برای رسیدگی به ورودی غیرقابل اعتماد در سایر بخش های query، مانند نام جدول یا ستون، یا عبارت `ORDER BY` استفاده شوند. عملکرد برنامه ای که داده های غیرقابل اعتماد را در این بخش های query قرار می دهد، باید رویکرد متفاوتی را اتخاذ کند، مانند:
 * لیست سفید مقادیر ورودی مجاز.
