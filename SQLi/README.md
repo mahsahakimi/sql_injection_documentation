@@ -134,6 +134,10 @@ SELECT * FROM products WHERE category = 'Gifts' OR 1=1--' AND released = 1
 
 کوئری تغییر یافته تمام مواردی را برمی‌گرداند که یا در دسته‌بندی `Gifts` قرار دارند یا `1=1` است. از آنجایی که `1=1` همیشه درست است، کوئری تمام موارد را برمی‌گرداند.
 
+<img src="./images/sqli-example-01.png" alt="Second-Order SQL Injection" style="display: block; margin-right: auto; margin-left: auto;">
+
+<img src="./images/sqli-example-02.png" alt="Second-Order SQL Injection" style="display: block; margin-right: auto; margin-left: auto;">
+
 ### هشدار
 هنگام تزریق شرط `OR 1=1` به یک کوئری SQL مراقب باشید. حتی اگر در زمینه‌ای که شما تزریق می‌کنید بی‌ضرر به نظر برسد، معمول است که برنامه‌ها از داده‌های یک درخواست در چندین کوئری مختلف استفاده کنند. اگر شرط شما به یک دستور UPDATE یا DELETE برسد، به عنوان مثال، ممکن است منجر به از دست رفتن تصادفی داده‌ها شود.
 
